@@ -1,0 +1,820 @@
+{
+  "javascript_functions": [
+    {
+      "query": "What is JavaScript?",
+      "response": "JavaScript is a versatile and widely-used scripting language primarily used to add interactivity to websites. It's also used in server-side development (Node.js) and many other environments.",
+      "code_snippet": "// JavaScript code is often embedded within HTML like this:\n<script>\n  console.log(\"Hello, world!\");\n</script>"
+    },
+    {
+      "query": "What are variables in JavaScript?",
+      "response": "Variables are used to store data in JavaScript. You can declare variables using `var`, `let`, or `const`.  `let` and `const` are preferred over `var` in modern JavaScript.",
+      "code_snippet": "let name = \"Alice\"; // Mutable variable (can be reassigned)\nconst age = 30; // Immutable variable (cannot be reassigned)\nvar message = \"Hello!\"; // Older way of declaring variables (avoid in new code)"
+    },
+    {
+      "query": "What are the data types in JavaScript?",
+      "response": "JavaScript has several data types, including: Number, String, Boolean, Null, Undefined, Symbol (ES6), and BigInt (ES2020).  Objects are also a fundamental data type.",
+      "code_snippet": "let count = 10; // Number\nlet greeting = \"Hello\"; // String\nlet isAdult = true; // Boolean\nlet nothing = null; // Null\nlet unknown; // Undefined\nlet uniqueSymbol = Symbol('id'); // Symbol\nlet bigNumber = 1234567890123456789012345678901234567890n; // BigInt"
+    },
+    {
+      "query": "What are operators in JavaScript?",
+      "response": "Operators are symbols that perform operations on values (operands).  JavaScript has a wide variety of operators, categorized by the type of operation they perform.",
+      "code_snippet": "// Arithmetic Operators\nlet x = 10;\nlet y = 5;\nlet sum = x + y; // Addition (15)\nlet difference = x - y; // Subtraction (5)\nlet product = x * y; // Multiplication (50)\nlet quotient = x / y; // Division (2)\nlet remainder = x % y; // Modulus (0) - gives the remainder of a division\nlet exponentiation = x ** y; // Exponentiation (100000)\n\n// Assignment Operators\nlet a = 10;\na = a + 5; // Equivalent to a += 5; (15)\na -= 2;      // Subtraction assignment (13)\na *= 3;      // Multiplication assignment (39)\na /= 2;      // Division assignment (19.5)\na %= 3;      // Modulus assignment (1.5)\na **= 2;     // Exponentiation assignment (3.0625)\n\n// Comparison Operators\nlet b = 5;\nlet isEqual = x == y; // Loose equality (false) - type coercion may occur\nlet isStrictEqual = x === y; // Strict equality (false) - no type coercion\nlet isNotEqual = x!= y;  // Inequality (true)\nlet isStrictNotEqual = x!== y; // Strict inequality (true)\nlet isGreater = x > y;  // Greater than (true)\nlet isLess = x < y;   // Less than (false)\nlet isGreaterOrEqual = x >= y; // Greater than or equal to (true)\nlet isLessOrEqual = x <= y;  // Less than or equal to (false)\n\n// Logical Operators\nlet c = true;\nlet d = false;\nlet andOperator = c && d; // Logical AND (false) - both operands must be true\nlet orOperator = c || d;  // Logical OR (true) - at least one operand must be true\nlet notOperator =!c;   // Logical NOT (false) - inverts the boolean value\n\n// Unary Operators\nlet counter = 0;\ncounter++; // Post-increment (0, then increments to 1)\n++counter; // Pre-increment (increments to 2, then returns 2)\ncounter--; // Post-decrement (2, then decrements to 1)\n--counter; // Pre-decrement (decrements to 0, then returns 0)\nlet negate = -x;   // Negation (-10)\nlet typeofOperator = typeof x; // Returns the data type of x (\"number\")\n\n// Ternary Operator (Conditional Operator)\nlet age = 20;\nlet message = age >= 18? \"Adult\": \"Minor\"; // If age is >= 18, message is \"Adult\", otherwise \"Minor\"\n\n// String Operators\nlet firstName = \"John\";\nlet lastName = \"Doe\";\nlet fullName = firstName + \" \" + lastName; // Concatenation (\"John Doe\")\nfullName += \" Jr.\"; // Concatenation assignment (\"John Doe Jr.\")\n\n// Type Operators\nlet myVariable = 10;\nlet typeOfMyVariable = typeof myVariable; // Returns \"number\"\n\n// Bitwise Operators (less common, for manipulating bits)\n// & (AND), | (OR), ^ (XOR), ~ (NOT), << (Left Shift), >> (Right Shift), >>> (Zero-fill Right Shift)\n// These are generally used for very specific low-level operations.\n\n// Comma Operator\nlet e = (1, 2, 3); // Evaluates each expression from left to right and returns the value of the last one (3)\n\n// Relational Operators (in, instanceof)\n// 'in' checks if a property exists in an object\n// 'instanceof' checks if an object is an instance of a particular class/constructor\n\n// Operator Precedence\n// Operators have different precedence levels, which determine the order in which they are evaluated.\n// Use parentheses () to explicitly control the order of operations.\nlet result = 2 + 3 * 4; // Multiplication has higher precedence than addition (14)\nlet result2 = (2 + 3) * 4; // Parentheses force addition to happen first (20)\n\n"
+    },
+    {
+      "query": "What are conditional statements?",
+      "response": "Conditional statements allow you to execute different blocks of code based on certain conditions. The most common conditional statements are `if`, `else if`, and `else`.",
+      "code_snippet": "let age = 18;\nif (age >= 18) {\n  console.log(\"You are an adult.\");\n} else {\n  console.log(\"You are not an adult yet.\");\n}"
+    },
+    {
+      "query": "What are loops in JavaScript?",
+      "response": "Loops allow you to repeat a block of code multiple times. Common loops include `for`, `while`, and `do...while`.",
+      "code_snippet": "// for loop\nfor (let i = 0; i < 5; i++) {\n  console.log(i);\n}\n\n// while loop\nlet i = 0;\nwhile (i < 5) {\n  console.log(i);\n  i++;\n}\n\n// do...while loop\nlet j = 0;\ndo {\n  console.log(j);\n  j++;\n} while (j < 5);"
+    },
+    {
+      "query": "What are arrays in JavaScript?",
+      "response": "Arrays are ordered collections of values. You can store values of any data type in an array.",
+      "code_snippet": "let numbers =;\nlet fruits = [\"apple\", \"banana\", \"orange\"];\n\n// Accessing elements\nconsole.log(numbers); // Output: 1\n\n// Adding elements\nfruits.push(\"grape\");"
+    },
+    {
+      "query": "What are objects in JavaScript?",
+      "response": "Objects are collections of key-value pairs.  Keys are strings (or Symbols), and values can be any data type.",
+      "code_snippet": "let person = {\n  name: \"Alice\",\n  age: 30,\n  city: \"New York\"\n};\n\n// Accessing properties\nconsole.log(person.name); // Output: Alice\nconsole.log(person['age']); // Output: 30"
+    },
+    {
+      "query": "What are functions in JavaScript? (expanded)",
+      "response": "Functions are reusable blocks of code. They are essential for organizing and structuring your JavaScript code.  They can take input (parameters) and produce output (return value).",
+      "code_snippet": "function add(a, b) {\n  return a + b;\n}\n\nlet sum = add(5, 3); // Calling the function\nconsole.log(sum); // Output: 8"
+    },
+    {
+      "query": "What is the DOM (Document Object Model)?",
+      "response": "The DOM is a representation of the structure of an HTML document. JavaScript can interact with the DOM to manipulate the content and structure of a web page.",
+      "code_snippet": "// Getting an element by ID\nlet myElement = document.getElementById(\"myId\");\n\n// Changing the text content\nmyElement.textContent = \"New Text\";"
+    },
+    {
+      "query": "What are events in JavaScript?",
+      "response": "Events are actions or occurrences that happen in the browser, such as a user clicking a button, hovering over an element, or the page loading. JavaScript can respond to these events using event listeners.",
+      "code_snippet": "// Adding an event listener to a button\nlet myButton = document.getElementById(\"myButton\");\nmyButton.addEventListener(\"click\", function() {\n  console.log(\"Button clicked!\");\n});"
+    },
+    {
+      "query": "What is asynchronous JavaScript?",
+      "response": "Asynchronous JavaScript allows you to perform operations that take time (like network requests) without blocking the main thread. This is important for creating responsive web applications.",
+      "code_snippet": "// Using setTimeout for asynchronous execution\nsetTimeout(function() {\n  console.log(\"This message is displayed after 2 seconds.\");\n}, 2000);\n\n// Promises (modern way of handling asynchronous operations)\nfetch('https://someapi.com/data')\n.then(response => response.json())\n.then(data => console.log(data));\n\n// async/await (cleaner syntax for Promises)\nasync function getData() {\n  const response = await fetch('https://someapi.com/data');\n  const data = await response.json();\n  console.log(data);\n}\n\ngetData();"
+    },
+    {
+      "query": "What are closures in JavaScript? (more detail)",
+      "response": "A closure is a function that has access to variables from its surrounding (lexical) scope, even after the outer function has returned.  This is a powerful concept for data encapsulation and creating private variables.",
+      "code_snippet": "function outerFunction() {\n  let outerVar = \"Hello\";\n\n  function innerFunction() {\n    console.log(outerVar); // innerFunction has access to outerVar\n  }\n\n  return innerFunction;\n}\n\nlet myClosure = outerFunction();\nmyClosure(); // Output: Hello\n\n// Example of data encapsulation (using a closure to create a counter)\nfunction createCounter() {\n  let count = 0;\n  return {\n    increment: function() {\n      count++;\n      return count;\n    },\n    decrement: function() {\n      count--;\n      return count;\n    }\n  };\n}\n\nlet counter = createCounter();\nconsole.log(counter.increment()); // Output: 1\nconsole.log(counter.decrement()); // Output: 0"
+    },
+    {
+      "query": "What are regular expressions in JavaScript?",
+      "response": "Regular expressions (regex) are patterns used to match or search for specific patterns in text. They are often used for validating and manipulating strings.",
+      "code_snippet": "// Matching a pattern\nlet pattern = /hello/;\nlet text = \"Hello, world!\";\nif (pattern.test(text)) {\n  console.log(\"Match found!\");\n}"
+    },
+    {
+      "query": "What are higher-order functions in JavaScript? (more detail)",
+      "response": "Higher-order functions are functions that can take other functions as arguments or return functions as results. They are a core concept in functional programming and enable powerful abstractions.",
+      "code_snippet": "// Function that takes a function as an argument\nfunction operate(func, a, b) {\n  return func(a, b);\n}\n\nfunction add(a, b) {\n  return a + b;\n}\n\nlet result = operate(add, 2, 3); // Pass 'add' function as an argument\nconsole.log(result); // Output: 5\n\n// Function that returns a function\nfunction multiplier(factor) {\n  return function(number) {\n    return number * factor;\n  };\n}\n\nlet double = multiplier(2);  // Create a function that multiplies by 2\nlet triple = multiplier(3);  // Create a function that multiplies by 3\n\nconsole.log(double(5));  // Output: 10\nconsole.log(triple(5));  // Output: 15\n\n// Common higher-order functions: map, filter, reduce\nconst numbers =;\n\n// map: transforms each element of an array\nconst doubled = numbers.map(x => x * 2);  //\n\n// filter: creates a new array with elements that pass a test\nconst evenNumbers = numbers.filter(x => x % 2 === 0); //\n\n// reduce: reduces an array to a single value\nconst sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0); // 15"
+    },
+    {
+      "query": "What is object-oriented programming (OOP) in JavaScript?",
+      "response": "Object-oriented programming (OOP) is a programming paradigm based on the concept of 'objects,' which can contain data (properties) and code (methods).  Key principles of OOP include encapsulation, inheritance, and polymorphism.",
+      "code_snippet": "// Creating an object using a constructor function (older way)\nfunction Person(name, age) {\n  this.name = name;\n  this.age = age;\n  this.greet = function() {\n    console.log(`Hello, my name is ${this.name}.`);\n  };\n}\n\nconst alice = new Person(\"Alice\", 30);\nalice.greet(); // Output: Hello, my name is Alice.\n\n// Creating a class (modern way - ES6 and later)\nclass Dog {\n  constructor(name, breed) {\n    this.name = name;\n    this.breed = breed;\n  }\n\n  bark() {\n    console.log(\"Woof!\");\n  }\n}\n\nconst buddy = new Dog(\"Buddy\", \"Golden Retriever\");\nbuddy.bark(); // Output: Woof!\n"
+    },
+    {
+      "query": "What are prototypes in JavaScript?",
+      "response": "Prototypes are the mechanism by which JavaScript implements inheritance. Every object has a prototype, which is another object. Objects inherit properties and methods from their prototypes.",
+      "code_snippet": "// Using prototypes for inheritance\nfunction Animal(name) {\n  this.name = name;\n}\n\nAnimal.prototype.speak = function() {\n  console.log(\"Generic animal sound\");\n};\n\nfunction Dog(name, breed) {\n  Animal.call(this, name); // Call the parent constructor\n  this.breed = breed;\n}\n\nDog.prototype = Object.create(Animal.prototype); // Inherit from Animal\nDog.prototype.bark = function() {\n  console.log(\"Woof!\");\n};\n\nconst myDog = new Dog(\"Rover\", \"Labrador\");\nmyDog.speak(); // Output: Generic animal sound\nmyDog.bark(); // Output: Woof!"
+    },
+    {
+      "query": "What are Promises in JavaScript?",
+      "response": "Promises are a way to handle asynchronous operations in a more structured and manageable way than callbacks. A Promise represents the eventual result of an asynchronous operation. It can be in one of three states: pending, fulfilled (resolved), or rejected.",
+      "code_snippet": "// Creating a Promise\nconst myPromise = new Promise((resolve, reject) => {\n  setTimeout(() => {\n    const success = true;  // Simulate success or failure\n    if (success) {\n      resolve(\"Operation successful!\");\n    } else {\n      reject(\"Operation failed!\");\n    }\n  }, 1000);\n});\n\n// Using the Promise\nmyPromise.then(result => {\n  console.log(result); // Output: Operation successful! (if resolved)\n}).catch(error => {\n  console.error(error); // Output: Operation failed! (if rejected)\n});\n"
+    },
+    {
+      "query": "What are async/await in JavaScript?",
+      "response": "async/await is a modern syntax for working with Promises that makes asynchronous code look and behave a bit more like synchronous code.  It makes asynchronous code easier to read and write.",
+      "code_snippet": "async function fetchData() {\n  try {\n    const response = await fetch('https://someapi.com/data');\n    const data = await response.json();\n    console.log(data);\n  } catch (error) {\n    console.error(\"Error fetching data:\", error);\n  }\n}\n\nfetchData();"
+    },
+    {
+      "query": "What are modules in JavaScript?",
+      "response": "Modules allow you to organize your JavaScript code into separate files. This makes your code more maintainable and reusable.  Modern JavaScript uses the ES6 module system (import/export).",
+      "code_snippet": "// In module1.js\nexport function myFunction() {\n  console.log(\"Hello from module1!\");\n}\n\n// In module2.js\nimport { myFunction } from './module1.js';\n\nmyFunction(); // Output: Hello from module1!\n"
+    },
+    {
+      "query": "What is the difference between `var`, `let`, and `const`?",
+      "response": "`var`, `let`, and `const` are all used to declare variables in JavaScript, but they have different scoping rules:\n\n*   `var`: Function scoped. Variables declared with `var` are accessible within the function they are declared in (or globally if declared outside any function).\n*   `let`: Block scoped. Variables declared with `let` are only accessible within the block of code (e.g., inside an `if` statement, `for` loop, or within curly braces) where they are defined.\n*   `const`: Block scoped (like `let`).  `const` also declares a constant – its value cannot be reassigned after it's initialized. However, if the `const` variable holds an object or array, the *contents* of the object or array can still be modified.",
+      "code_snippet": "// var (function scoped)\nfunction myFunction() {\n  var x = 10;\n  if (true) {\n    var y = 20;\n  }\n  console.log(x); // Output: 10\n  console.log(y); // Output: 20 (y is accessible because of function scope)\n}\n\nmyFunction();\n\n// let and const (block scoped)\nlet a = 10;\nconst b = 20;\n\nif (true) {\n  let c = 30;\n  const d = 40;\n  console.log(c); // Output: 30\n  console.log(d); // Output: 40\n}\n\nconsole.log(a); // Output: 10\nconsole.log(b); // Output: 20\n// console.log(c);  // Error: c is not defined (block scoped)\n// console.log(d);  // Error: d is not defined (block scoped)\n\nconst myObject = { name: \"Alice\" };\nmyObject.name = \"Bob\"; // Modifying a property of the object is allowed\nconsole.log(myObject.name); // Output: Bob\n\n// myObject = { age: 30 }; // Reassigning the object itself is not allowed (TypeError)\n"
+    }
+  ],
+  "css_data": [
+    {
+      "query": "What is CSS?",
+      "response": "CSS stands for Cascading Style Sheets. It's a language used to describe the presentation of HTML documents.  Essentially, it styles the look and feel of web pages, including colors, fonts, layout, and responsiveness.",
+      "code_snippet": "/* Example:  basic CSS to style a paragraph */\np {\n  color: blue;\n  font-size: 16px;\n  text-align: center;\n}"
+    },
+    {
+      "query": "How do I add CSS to an HTML page?",
+      "response": "There are three main ways to add CSS:\n\n1. **Inline:** Using the `style` attribute directly within an HTML tag.\n2. **Internal:** Using a `<style>` tag within the `<head>` of the HTML document.\n3. **External:** Linking to a separate CSS file using the `<link>` tag.",
+      "code_snippet": "\n<p style=\"color: red;\">This is a red paragraph.</p>\n\n\n<head>\n  <style>\n    p {\n      color: green;\n    }\n  </style>\n</head>\n\n\n<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>"
+    },
+    {
+      "query": "What are CSS selectors?",
+      "response": "Selectors are patterns used to target specific HTML elements for styling. There are many types of selectors, including:\n\n*   **Element selectors:** Target elements by their tag name (e.g., `p`, `h1`, `div`).\n*   **ID selectors:** Target elements with a specific `id` attribute (e.g., `#myElement`).\n*   **Class selectors:** Target elements with a specific `class` attribute (e.g., `.myClass`).\n*   **Attribute selectors:** Target elements based on their attributes (e.g., `[type=\"submit\"]`).\n*   **Pseudo-classes:** Target elements based on their state (e.g., `:hover`, `:active`, `:focus`).\n*   **Pseudo-elements:** Target specific parts of an element (e.g., `::before`, `::after`, `::first-line`).\n*   **Combinators:** Combine multiple selectors (e.g., `div p` - selects all `p` elements inside a `div`).",
+      "code_snippet": "/* Element selector */\np {\n  color: blue;\n}\n\n/* ID selector */\n#myHeading {\n  font-size: 24px;\n}\n\n/* Class selector */\n.highlight {\n  background-color: yellow;\n}"
+    },
+    {
+      "query": "What are CSS properties and values?",
+      "response": "Properties are the styling features you want to change (e.g., `color`, `font-size`, `margin`). Values are the specific settings for those properties (e.g., `red`, `16px`, `10px`).",
+      "code_snippet": "p {\n  color: red; /* Property: color, Value: red */\n  font-size: 16px; /* Property: font-size, Value: 16px */\n  margin-top: 10px; /* Property: margin-top, Value: 10px */\n}"
+    },
+    {
+      "query": "What is the CSS box model?",
+      "response": "The box model describes how elements are rendered as rectangular boxes with content, padding, borders, and margins. Understanding the box model is crucial for layout and spacing.",
+      "code_snippet": "div {\n  width: 200px;\n  padding: 20px; /* Space between content and border */\n  border: 1px solid black; \n  margin: 10px; /* Space outside the border */\n}"
+    },
+    {
+      "query": "What are CSS units?",
+      "response": "Units are used to specify the size or length of CSS properties. Common units include:\n\n*   **Pixels (`px`):**  Fixed units based on screen pixels.\n*   **Percentages (`%`):** Relative to the parent element.\n*   **Ems (`em`):** Relative to the font size of the element.\n*   **Rems (`rem`):** Relative to the font size of the root element.\n*   **Viewport units (`vw`, `vh`):** Relative to the viewport width or height.\n*   **Other units:**  `cm`, `mm`, `in`, `pt`, etc.",
+      "code_snippet": "p {\n  font-size: 16px; /* Pixels */\n  width: 50%; /* Percentage */\n  line-height: 1.5em; /* Ems */\n  margin-top: 2rem; /* Rems */\n  height: 10vh; /* Viewport height */\n}"
+    },
+    {
+      "query": "What is CSS inheritance?",
+      "response": "Inheritance means that some CSS properties are passed down from parent elements to their children. This helps create consistency in styling.",
+      "code_snippet": "body {\n  font-family: Arial, sans-serif;\n  color: blue;\n}\n\n/* Paragraphs will inherit font-family and color from body */\np {\n  /* No need to specify font-family or color here */\n}"
+    },
+    {
+      "query": "What is the cascade in CSS?",
+      "response": "The cascade defines the rules for how conflicting CSS styles are applied.  It takes into account:\n\n*   **Importance:**  `!important` declarations have the highest priority.\n*   **Specificity:** More specific selectors (e.g., ID selectors) have higher priority.\n*   **Source order:**  If importance and specificity are the same, the rule that comes later in the stylesheet wins.",
+      "code_snippet": "/* Importance */\np {\n  color: red!important; /* This will override other color styles */\n}\n\n/* Specificity */\n#myParagraph {\n  color: blue; /* More specific than just 'p' */\n}\n\n/* Source order */\np {\n  color: green; /* This will be overridden by the later rule */\n}\n\np {\n  color: purple; /* This rule wins because it comes later */\n}"
+    },
+    {
+      "query": "What are CSS frameworks?",
+      "response": "CSS frameworks are pre-written libraries that provide a set of CSS styles, components, and guidelines to help you build websites more efficiently. Popular frameworks include Bootstrap, Tailwind CSS, Foundation, and Materialize.",
+      "code_snippet": "Frameworks offer benefits like:\n\n*   **Consistency:**  Provide a consistent look and feel across your website.\n*   **Responsiveness:**  Often include pre-built responsive styles.\n*   **Efficiency:**  Save time by using pre-designed components.\n*   **Maintainability:**  Help structure your CSS and make it easier to maintain.\n*   **Community support:**  Large communities offer help and resources."
+    },
+    {
+      "query": "What is responsive web design?",
+      "response": "Responsive web design is an approach to web design that aims to make web pages render well on a variety of devices and screen sizes.  It uses techniques like:\n\n*   **Fluid grids:**  Layouts that adapt to different screen sizes.\n*   **Flexible images:**  Images that scale proportionally.\n*   **Media queries:**  CSS rules that apply styles based on device characteristics (e.g., screen width, orientation).",
+      "code_snippet": "@media (max-width: 768px) {\n  /* Styles for smaller screens (e.g., tablets) */\n.container {\n    width: 90%;\n  }\n}"
+    },
+    {
+      "query": "What are CSS preprocessors?",
+      "response": "CSS preprocessors (like Sass, Less, and Stylus) extend the capabilities of CSS by adding features like variables, mixins, nesting, and functions. This makes CSS more maintainable and organized.",
+      "code_snippet": "// Sass example (using variables and nesting)\n$primary-color: #007bff;\n\n.container {\n  color: $primary-color;\n\n  p {\n    font-size: 16px;\n  }\n}"
+    },
+    {
+      "query": "What is CSS-in-JS?",
+      "response": "CSS-in-JS is an approach to styling where you write CSS styles within your JavaScript code. This allows for dynamic styling and closer integration between CSS and JavaScript.  Popular libraries include styled-components and Emotion.",
+      "code_snippet": "// styled-components example\nimport styled from 'styled-components';\n\nconst Button = styled.button`\n  background-color: #007bff;\n  color: white;\n  padding: 10px 20px;\n  border: none;\n`;"
+    },
+    {
+      "query": "What are some common CSS properties?",
+      "response": "Here are some frequently used CSS properties:\n\n*   **Color:**  `color`, `background-color`\n*   **Font:**  `font-family`, `font-size`, `font-weight`, `font-style`\n*   **Text:**  `text-align`, `line-height`, `letter-spacing`, `text-decoration`\n*   **Margin:**  `margin`, `margin-top`, `margin-right`, `margin-bottom`, `margin-left`\n*   **Padding:**  `padding`, `padding-top`, `padding-right`, `padding-bottom`, `padding-left`\n*   **Border:**  `border`, `border-width`, `border-style`, `border-color`\n*   **Display:**  `display`, `visibility`\n*   **Positioning:**  `position`, `top`, `right`, `bottom`, `left`, `z-index`\n*   **Width/Height:**  `width`, `height`, `min-width`, `max-width`, `min-height`, `max-height`\n*   **Box Model:**  `box-sizing`, `overflow`\n*   **Flexbox:**  `display: flex`, `flex-direction`, `justify-content`, `align-items`\n*   **Grid:**  `display: grid`, `grid-template-columns`, `grid-template-rows`\n*   **Animation:**  `animation`, `transition`",
+      "code_snippet": "// Example usage of some common properties\ndiv {\n  color: blue;\n  font-size: 18px;\n  margin: 10px;\n  padding: 20px;\n  border: 1px solid black;\n  display: block;\n  width: 300px;\n}"
+    },
+    {
+      "query": "What is a CSS gradient?",
+      "response": "A CSS gradient is an image that is created by smoothly transitioning between two or more colors. It can be used as a background image, or to fill other UI elements.   Gradients can be linear or radial, and can be customized with additional features such as repeating patterns.",
+      "code_snippet": "// Linear gradient example\n.linear-gradient {\n  background-image: linear-gradient(to bottom, #ff0000, #ffffff);\n}\n\n// Radial gradient example\n.radial-gradient {\n  background-image: radial-gradient(circle, #ff0000, #ffffff);\n}"
+    },
+    {
+      "query": "What is a CSS media query?",
+      "response": "A CSS media query is a CSS rule that allows you to apply different styles based on different device characteristics, such as screen size, device orientation, or color depth.",
+      "code_snippet": "// Example usage of a media query\n@media (max-width: 600px) {\n  /* styles here are only applied when the screen width is 600px or less */\n}"
+    },
+    {
+      "query": "What is a CSS pseudo-class?",
+      "response": "A CSS pseudo-class is a keyword added to a selector that allows you to style specific states of an element, such as when it is hovered over or when it is the first child element.",
+      "code_snippet": "// Example usage of a pseudo-class\na:hover {\n  /* styles here are only applied when the element is hovered over */\n}"
+    },
+    {
+      "query": "What is a CSS pseudo-element?",
+      "response": "A CSS pseudo-element is a keyword added to a selector that allows you to style specific parts of an element, such as the first letter or the first line of text.",
+      "code_snippet": "// Example usage of a pseudo-element\np::first-letter {\n  /* styles here are only applied to the first letter of the element */\n}"
+    },
+    {
+      "query": "What is the difference between inline and block elements in CSS?",
+      "response": "Inline and block are two fundamental display settings for HTML elements, and they affect how elements are laid out and interact with each other:\n\n**Inline elements:**\n\n* **Flow with text:** Inline elements flow within a line of text, like words. They only take up as much width as their content requires.\n* **No line breaks:** They don't force line breaks before or after them, so other elements can sit beside them on the same line.\n* **Limited box model control:** You can't directly set their width or height. Margins and padding only apply horizontally (left and right).\n\n**Common inline elements:** `<span>`, `<a>`, `<img>`, `<strong>`, `<em>`\n\n**Block elements:**\n\n* **Start on a new line:** Block elements always start on a new line and take up the full width available to them by default.\n* **Force line breaks:** They create line breaks before and after, so other elements can't sit beside them on the same line.\n* **Full box model control:** You can set their width, height, margins, and padding on all sides.\n\n**Common block elements:** `<div>`, `<p>`, `<h1>`-`<h6>`, `<ul>`, `<ol>`, `<li>`, `<table>`, `<form>`\n\n**Key differences summarized:**\n\n| Feature | Inline | Block |\n|---|---|---|\n| Line breaks | No | Yes |\n| Width | As needed | Full width by default |\n| Height | Can't set directly | Can set directly |\n| Margins/padding | Horizontal only | All sides |\n\n**Changing display:**\n\nYou can change the default display behavior of elements using the `display` property in CSS:\n\n* `display: inline;`  - Makes an element behave like an inline element.\n* `display: block;`  - Makes an element behave like a block element.\n* `display: inline-block;` -  Combines aspects of both, allowing you to set width and height while keeping it inline.",
+      "code_snippet": "\n<span>This is an inline element.</span>\n<span>Another inline element.</span>\n\n\n<p>This is a block element.</p>\n<p>Another block element.</p>\n\n\nspan {\n  display: block; /* Now the spans will behave like block elements */\n  border: 1px solid black; /* Example to show block behavior */\n  width: 200px; /* Now you can set the width */\n}\n\ndiv {\n  display: inline; /* Now the div will behave like an inline element */\n}"
+    },
+    {
+      "query": "What is the <p> tag in HTML?",
+      "response": "The `<p>` tag defines a paragraph in HTML. It's a block-level element that automatically adds some space (a margin) before and after the text.\n\n**Usage:**\n\n```html\n<p>This is a paragraph of text.</p>\n```\n\n**Attributes:**\n\nWhile the `<p>` tag doesn't have many unique attributes, it can use global HTML attributes like `class`, `id`, and `style`.\n\n* `class`:  Used to assign CSS classes for styling.\n* `id`: Used to give the paragraph a unique identifier.\n* `style`: Used to apply inline CSS styles.\n\n**Example with attributes:**\n\n```html\n<p class=\"intro\" id=\"first-paragraph\" style=\"color: blue;\">This is a styled paragraph.</p>\n```",
+      "code_snippet": "<p>This is a simple paragraph.</p>\n\n<p class=\"my-paragraph\">This paragraph has a class.</p>"
+    }
+  ],
+  "family_data": [
+    {
+      "query": "What is my name?",
+      "response": "I remember your name as Vijay Chandan Kandadai. Would you like to Change it?",
+      "code_snippet": ""
+    },
+    {
+      "query": "What is my favorite color?",
+      "response": "My favorite color is Red.",
+      "code_snippet": ""
+    },
+    {
+      "query": "What is my favorite food?",
+      "response": "My favorite food is Potato.",
+      "code_snippet": ""
+    },
+    {
+      "query": "What is my favorite sport?",
+      "response": "My favorite sport is Cricket.",
+      "code_snippet": ""
+    },
+    {
+      "query": "What is my favorite movie?",
+      "response": "My favorite movie is Avengers.",
+      "code_snippet": ""
+    },
+    {
+      "query": "What is my wife's name?",
+      "response": "My wife's name is Sravani Amukta Maylada(Sam).",
+      "code_snippet": ""
+    }
+  ],
+  "react_unit_test_cases": [
+    {
+      "query": "How do you enable fake timers in Jest?",
+      "response": "You can enable fake timers by calling jest.useFakeTimers(). This replaces the original implementation of setTimeout() and other timer functions.",
+      "code_snippet": "jest.useFakeTimers();"
+    },
+    {
+      "query": "How can you fast-forward time in Jest tests?",
+      "response": "You can fast-forward time by using jest.runAllTimers(). This will execute all pending timers.",
+      "code_snippet": "jest.runAllTimers();"
+    },
+    {
+      "query": "How do you handle recursive timers in Jest?",
+      "response": "Use jest.runOnlyPendingTimers() to handle recursive timers. It runs only currently pending timers and avoids an infinite loop.",
+      "code_snippet": "jest.runOnlyPendingTimers();"
+    },
+    {
+      "query": "What function do you use to advance timers by a specific amount of time?",
+      "response": "Use jest.advanceTimersByTime(msToRun) to advance all timers by the specified milliseconds.",
+      "code_snippet": "jest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How can you clear all timers in Jest tests?",
+      "response": "You can clear all timers with jest.clearAllTimers() to reset the state of timers.",
+      "code_snippet": "jest.clearAllTimers();"
+    },
+    {
+      "query": "What happens if I don't use jest.runOnlyPendingTimers() for recursive timers?",
+      "response": "Without using jest.runOnlyPendingTimers(), running all timers could result in an error due to an infinite loop, especially with recursive timers.",
+      "code_snippet": "jest.runOnlyPendingTimers();"
+    },
+    {
+      "query": "How do you test a callback function after 1 second?",
+      "response": "Use jest.useFakeTimers() and then use jest.runAllTimers() to ensure that the callback is called after 1 second.",
+      "code_snippet": "jest.useFakeTimers();\ntimerGame(callback);\njest.runAllTimers();"
+    },
+    {
+      "query": "Can I limit the number of timers Jest runs before an error?",
+      "response": "Yes, you can set a timer limit with the timerLimit option when using jest.useFakeTimers().",
+      "code_snippet": "jest.useFakeTimers({timerLimit: 100});"
+    },
+    {
+      "query": "How do you test if a timer was called with a specific time?",
+      "response": "Use jest.spyOn(global, 'setTimeout') to spy on setTimeout and check if it was called with the correct time.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nexpect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 1000);"
+    },
+    {
+      "query": "How do you simulate timers in Jest tests for recursive functions?",
+      "response": "For recursive functions, you should mock timers carefully and use jest.runOnlyPendingTimers() to handle only those timers that are scheduled to run.",
+      "code_snippet": "jest.useFakeTimers();\ninfiniteTimerGame(callback);\njest.runOnlyPendingTimers();"
+    },
+    {
+      "query": "How can you test timers that are set with setInterval()?",
+      "response": "To test setInterval(), use jest.spyOn(global, 'setInterval') and mock the behavior of setInterval with jest.useFakeTimers().",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nexpect(setInterval).toHaveBeenCalledWith(expect.any(Function), 1000);"
+    },
+    {
+      "query": "How do you handle promises and async functions when using fake timers?",
+      "response": "Promises and async functions still work with fake timers. Use jest.runAllTimers() to flush pending promises and timers.",
+      "code_snippet": "jest.useFakeTimers();\nmyAsyncFunction().then(() => {});\njest.runAllTimers();"
+    },
+    {
+      "query": "How do you use jest.useRealTimers()?",
+      "response": "To restore the real timer implementations (e.g., setTimeout, setInterval), you can call jest.useRealTimers().",
+      "code_snippet": "jest.useRealTimers();"
+    },
+    {
+      "query": "Can you run specific timers with jest.advanceTimersByTime()?",
+      "response": "Yes, jest.advanceTimersByTime() will advance all timers by a specific amount, but you cannot advance only one specific timer.",
+      "code_snippet": "jest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you test that setTimeout is called only once?",
+      "response": "To test that setTimeout is called only once, you can spy on it and use assertions to check the call count.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nexpect(setTimeout).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you test a function that waits for multiple timers?",
+      "response": "You can test functions that wait for multiple timers by using jest.advanceTimersByTime() or jest.runAllTimers() in sequence to simulate time passing.",
+      "code_snippet": "jest.useFakeTimers();\ntimerFunction();\njest.advanceTimersByTime(500);"
+    },
+    {
+      "query": "How do you test for an error thrown in a timer callback?",
+      "response": "Use jest.spyOn() to mock the timer, and use expect() to check if the error is thrown during the timer callback.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nexpect(() => { throw new Error() }).toThrow();"
+    },
+    {
+      "query": "What is the purpose of jest.runTimersToTime()?",
+      "response": "jest.runTimersToTime() runs all timers up to a specified amount of time. It’s useful when you want to run multiple timers but limit the time they run for.",
+      "code_snippet": "jest.runTimersToTime(1000);"
+    },
+    {
+      "query": "How do you test that timers work correctly with setInterval?",
+      "response": "To test setInterval with jest, mock the interval function and use assertions to check that it was called the expected number of times.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nexpect(setInterval).toHaveBeenCalledTimes(3);"
+    },
+    {
+      "query": "How do you use jest.runTimers() for a specific timeout?",
+      "response": "Use jest.runTimers() to run specific timeouts instead of all pending timers. This allows for more granular control over the timers.",
+      "code_snippet": "jest.runTimers(1000);"
+    },
+    {
+      "query": "Can jest simulate timers for delayed promises?",
+      "response": "Yes, jest can simulate delays for promises by using jest.useFakeTimers() along with jest.runAllTimers() to handle async code.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(() => {});\njest.runAllTimers();"
+    },
+    {
+      "query": "How do you handle multiple timer intervals in a test?",
+      "response": "To handle multiple intervals, use jest.advanceTimersByTime() multiple times or use jest.runOnlyPendingTimers() to control their execution.",
+      "code_snippet": "jest.useFakeTimers();\nintervalFunction();\njest.advanceTimersByTime(500);"
+    },
+    {
+      "query": "How do you test code that uses setTimeout() and promises together?",
+      "response": "Combine jest.useFakeTimers() with promises and advance the timers as needed with jest.runAllTimers() to simulate time and resolve the promises.",
+      "code_snippet": "jest.useFakeTimers();\npromiseWithTimeout();\njest.runAllTimers();"
+    },
+    {
+      "query": "Can fake timers be used with all async operations in Jest?",
+      "response": "Fake timers work with setTimeout, setInterval, and promise delays, but not directly with all async operations like fetch or other external async functions.",
+      "code_snippet": "jest.useFakeTimers();\nfetchData().then(() => {});\njest.runAllTimers();"
+    },
+    {
+      "query": "How do you simulate timer delays in Jest?",
+      "response": "Simulate timer delays by using jest.useFakeTimers() and then advancing time with jest.advanceTimersByTime() or running all timers with jest.runAllTimers().",
+      "code_snippet": "jest.useFakeTimers();\nsomeTimerFunction();\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you check if a timer was cancelled?",
+      "response": "To check if a timer was cancelled, spy on the timer method and verify that it was not called after it was cleared.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\ncancelTimeout(timerId);\nexpect(setTimeout).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "What is jest.useFakeTimers({ legacyFakeTimers: true })?",
+      "response": "The legacyFakeTimers option lets you use the older version of fake timers (before version 27), which might be necessary for compatibility with older code.",
+      "code_snippet": "jest.useFakeTimers({ legacyFakeTimers: true });"
+    },
+    {
+      "query": "How do you mock setInterval for a test?",
+      "response": "To mock setInterval in Jest, use jest.spyOn() to monitor the calls to setInterval and check that it's being called the expected number of times.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nexpect(setInterval).toHaveBeenCalledTimes(5);"
+    },
+    {
+      "query": "How can you test that setTimeout is called after a delay?",
+      "response": "To test setTimeout delay, spy on setTimeout and use jest.advanceTimersByTime() to move time forward, then check if the callback was invoked.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(2000);\nexpect(callback).toHaveBeenCalled();"
+    },
+    {
+      "query": "How can you simulate multiple timers running in parallel?",
+      "response": "You can simulate multiple timers running in parallel by using jest.useFakeTimers() and advancing timers separately with jest.advanceTimersByTime().",
+      "code_snippet": "jest.useFakeTimers();\ntimerFunctionOne();\ntimerFunctionTwo();\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "Can fake timers be used in a React component?",
+      "response": "Yes, fake timers can be used in React tests to simulate setTimeout, setInterval, and other timer-based functions.",
+      "code_snippet": "jest.useFakeTimers();\nrender(<MyComponent />);\njest.runAllTimers();"
+    },
+    {
+      "query": "How do you mock timeouts in async functions using fake timers?",
+      "response": "You can mock timeouts in async functions by using jest.useFakeTimers(), calling the async function, and then advancing the timers with jest.advanceTimersByTime() or jest.runAllTimers().",
+      "code_snippet": "jest.useFakeTimers();\nasyncFunctionWithTimeout();\njest.advanceTimersByTime(500);"
+    },
+    {
+      "query": "How do you check the interval delay when using setInterval in Jest?",
+      "response": "Use jest.spyOn() to monitor the calls to setInterval and verify if it's called with the expected delay.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nexpect(setInterval).toHaveBeenCalledWith(expect.any(Function), 1000);"
+    },
+    {
+      "query": "How do you simulate immediate setTimeout in Jest?",
+      "response": "Use jest.advanceTimersByTime() to simulate immediate execution of setTimeout.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 0);\njest.advanceTimersByTime(0);"
+    },
+    {
+      "query": "How do you ensure that timers are not called before a certain time?",
+      "response": "Use jest.advanceTimersByTime() to make sure that no timer runs before the specified time.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "What should you do if a timer callback throws an error in Jest?",
+      "response": "You can use try-catch around the timer callback and assert that the error is thrown using expect().toThrow().",
+      "code_snippet": "jest.useFakeTimers();\nexpect(() => { throw new Error('Timer Error'); }).toThrow();"
+    },
+    {
+      "query": "Can you mock setTimeout with custom delay in Jest?",
+      "response": "Yes, you can mock setTimeout with a custom delay by using jest.useFakeTimers() and specifying the delay in your test.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you test that a timer does not run if cleared before execution?",
+      "response": "Spy on the setTimeout method and call clearTimeout before advancing timers to ensure the timer was cleared.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nconst timeoutId = setTimeout(callback, 1000);\nclearTimeout(timeoutId);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How can you simulate an immediate call for multiple timers in Jest?",
+      "response": "Use jest.runAllTimers() to simulate the immediate execution of all timers.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 1000);\nsetTimeout(callback2, 2000);\njest.runAllTimers();"
+    },
+    {
+      "query": "Can you simulate multiple asynchronous operations using fake timers?",
+      "response": "Yes, you can simulate multiple asynchronous operations by advancing time using jest.advanceTimersByTime() after each operation.",
+      "code_snippet": "jest.useFakeTimers();\npromise1().then(callback1);\npromise2().then(callback2);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you test that an interval was cancelled after some time?",
+      "response": "Use jest.spyOn() to monitor setInterval, and clear the interval in the test to assert that the interval was cancelled.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nconst intervalId = setInterval(callback, 1000);\nclearInterval(intervalId);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How can you test delayed callbacks using setTimeout and promises in Jest?",
+      "response": "Use jest.useFakeTimers() to simulate the setTimeout delay, and run pending promises with jest.runAllTimers() to ensure the callbacks are called.",
+      "code_snippet": "jest.useFakeTimers();\npromiseWithTimeout().then(callback);\njest.advanceTimersByTime(1000);\nexpect(callback).toHaveBeenCalled();"
+    },
+    {
+      "query": "How can you mock the setInterval function to run only once in Jest?",
+      "response": "Use jest.spyOn() to mock setInterval and ensure it runs only once by calling clearInterval after the first call.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\nclearInterval(intervalId);\nexpect(setInterval).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you test a function that calls setInterval repeatedly?",
+      "response": "Use jest.spyOn() to monitor setInterval calls and use jest.advanceTimersByTime() to simulate multiple intervals.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nfunction intervalFunction() { setInterval(callback, 1000); }\nintervalFunction();\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you simulate multiple asynchronous timeouts and promises in Jest?",
+      "response": "Simulate multiple asynchronous timeouts and promises by advancing time step by step with jest.advanceTimersByTime().",
+      "code_snippet": "jest.useFakeTimers();\npromise1().then(callback1);\npromise2().then(callback2);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you ensure that timers run only when expected?",
+      "response": "Use jest.advanceTimersByTime() or jest.runAllTimers() to control when the timers run and assert that they are executed only after the expected delay.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(500);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you check if the timer callback was not called after clearing the timer?",
+      "response": "Use jest.spyOn() to monitor the timer function and ensure that clearTimeout() prevents the callback from being called.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nconst timeoutId = setTimeout(callback, 1000);\nclearTimeout(timeoutId);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you simulate timers in multiple test cases?",
+      "response": "You can simulate timers across multiple test cases by ensuring jest.useFakeTimers() is called at the start of each test and cleared using jest.clearAllTimers() at the end.",
+      "code_snippet": "beforeEach(() => jest.useFakeTimers());\nafterEach(() => jest.clearAllTimers());"
+    },
+    {
+      "query": "How do you handle timers in tests with nested setTimeout calls?",
+      "response": "To handle nested setTimeout calls, you should manually advance timers in the order they are scheduled, using jest.advanceTimersByTime().",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(() => { setTimeout(callback, 500); }, 1000);\njest.advanceTimersByTime(1500);"
+    },
+    {
+      "query": "How do you test a function that cancels a timer after a delay?",
+      "response": "You can test this by calling clearTimeout in the test and ensuring that the callback does not get executed after the timer is cancelled.",
+      "code_snippet": "jest.useFakeTimers();\nconst timeoutId = setTimeout(callback, 1000);\nclearTimeout(timeoutId);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you simulate an interval running in the background in Jest?",
+      "response": "Simulate intervals running in the background by calling setInterval() in the test and using jest.advanceTimersByTime() to step through the time.",
+      "code_snippet": "jest.useFakeTimers();\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test setTimeout with a callback that should not be invoked immediately?",
+      "response": "Use jest.advanceTimersByTime() to ensure that setTimeout's callback is invoked only after the specified delay.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you check if a promise resolves after a timeout?",
+      "response": "Use jest.useFakeTimers() and then advance the time to simulate the timeout before asserting that the promise has resolved.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(() => { callback(); });\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How can you test a recurring setInterval timer?",
+      "response": "Spy on setInterval() and advance the timers step by step using jest.advanceTimersByTime() to test the recurring execution.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you mock timer callbacks with delays in Jest?",
+      "response": "You can mock timer callbacks by simulating their execution after the delay using jest.advanceTimersByTime() or jest.runAllTimers().",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you ensure setTimeout is invoked after the specific delay?",
+      "response": "You can check if setTimeout is invoked after a delay by using jest.spyOn() and verifying it was called with the correct delay.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(1000);\nexpect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 1000);"
+    },
+    {
+      "query": "How do you check if timers are called in the correct order?",
+      "response": "Use jest.spyOn() and advance timers in steps to verify if the timers are executed in the expected order.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 500);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How can you test asynchronous code with fake timers?",
+      "response": "Fake timers can be used for testing asynchronous code by combining jest.useFakeTimers() with jest.runAllTimers() or jest.advanceTimersByTime().",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(callback);\njest.runAllTimers();"
+    },
+    {
+      "query": "How do you test multiple setTimeout calls with different delays in Jest?",
+      "response": "You can test multiple setTimeout calls by advancing time incrementally and checking that each callback is invoked at the correct time.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you simulate a promise resolving after a timeout in Jest?",
+      "response": "Use jest.useFakeTimers() to simulate the delay, and manually resolve the promise after advancing timers.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(callback);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you mock multiple timers set by setTimeout in Jest?",
+      "response": "Use jest.spyOn() to monitor setTimeout and ensure multiple timers are called as expected, then simulate their execution.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test timers set within setInterval in Jest?",
+      "response": "Spy on setInterval and then advance time using jest.advanceTimersByTime() to ensure that the interval executes as expected.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test that a timer is cleared after some time in Jest?",
+      "response": "You can clear the timer and ensure that its callback does not execute by calling clearTimeout or clearInterval.",
+      "code_snippet": "jest.useFakeTimers();\nconst timeoutId = setTimeout(callback, 1000);\nclearTimeout(timeoutId);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you ensure setInterval only runs once in Jest?",
+      "response": "To ensure setInterval runs only once, mock setInterval and verify that it is called with the expected parameters and is cleared immediately.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\nclearInterval(intervalId);\nexpect(setInterval).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you test delayed function calls with setTimeout in Jest?",
+      "response": "Use jest.useFakeTimers() to simulate time passing, ensuring that setTimeout behaves as expected.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you test an interval that continues after a certain delay?",
+      "response": "Spy on setInterval() and use jest.advanceTimersByTime() to simulate the time for multiple interval executions.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you mock setInterval to simulate immediate execution of the callback?",
+      "response": "You can mock setInterval and use jest.runAllTimers() to immediately execute the callbacks.",
+      "code_snippet": "jest.useFakeTimers();\nsetInterval(callback, 1000);\njest.runAllTimers();"
+    },
+    {
+      "query": "How do you simulate a delay with promises and timers in Jest?",
+      "response": "Simulate a delay in a promise by combining setTimeout with promises, using jest.advanceTimersByTime() to control the delay.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(callback);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you ensure a function is not called before a timeout in Jest?",
+      "response": "You can ensure that a function is not called before the timeout by advancing the timers using jest.advanceTimersByTime() and verifying that the callback has not been invoked.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you simulate a timeout function inside a promise?",
+      "response": "You can simulate the timeout inside a promise by using jest.useFakeTimers() and advancing time for each timeout.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(() => { setTimeout(callback, 1000); });\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you test setTimeout with a callback that should be invoked after a delay?",
+      "response": "Use jest.advanceTimersByTime() to ensure the callback is invoked after the specified delay.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you simulate multiple setTimeout calls with decreasing delays?",
+      "response": "Use jest.advanceTimersByTime() to incrementally trigger multiple setTimeout callbacks with different delays.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 3000);\nsetTimeout(callback2, 2000);\nsetTimeout(callback3, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you ensure that a timer only fires once in Jest?",
+      "response": "Mock setTimeout/setInterval and verify that it is only invoked once using jest.spyOn().",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(1000);\nexpect(setTimeout).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you test a delayed callback that should only execute once?",
+      "response": "Use jest.spyOn() to monitor the setTimeout/setInterval and ensure the callback only executes once after the delay.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(1000);\nexpect(callback).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you mock a delay for a recurring setInterval function?",
+      "response": "Mock setInterval and use jest.advanceTimersByTime() to simulate multiple intervals with different delays.",
+      "code_snippet": "jest.useFakeTimers();\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you simulate a timeout with promises and multiple setTimeout calls?",
+      "response": "You can combine setTimeout with promises, using jest.advanceTimersByTime() to simulate the delays for each setTimeout.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(() => setTimeout(callback1, 1000));\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you simulate asynchronous calls with multiple setTimeout functions?",
+      "response": "You can simulate asynchronous calls with multiple setTimeout functions by advancing time incrementally using jest.advanceTimersByTime().",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you ensure timers execute in the expected order in Jest?",
+      "response": "You can ensure timers execute in the correct order by advancing timers incrementally and checking the execution sequence.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test setInterval with a recurring callback that fires after a specific delay?",
+      "response": "You can test setInterval by using jest.advanceTimersByTime() to simulate its periodic firing after the given delay.",
+      "code_snippet": "jest.useFakeTimers();\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you verify if timers are fired in sequence and not prematurely in Jest?",
+      "response": "You can check if timers are fired in sequence by using jest.advanceTimersByTime() and verifying each callback’s execution order.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you simulate delays for multiple promises in Jest?",
+      "response": "You can simulate delays for multiple promises by using jest.advanceTimersByTime() after each promise to control their resolution order.",
+      "code_snippet": "jest.useFakeTimers();\npromise1().then(callback1);\npromise2().then(callback2);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you test setTimeout with multiple promises that resolve at different times?",
+      "response": "Use jest.advanceTimersByTime() to simulate the passing of time and resolve promises in sequence.",
+      "code_snippet": "jest.useFakeTimers();\npromise1().then(callback1);\npromise2().then(callback2);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you test asynchronous functions that are delayed with setTimeout in Jest?",
+      "response": "Use jest.useFakeTimers() to mock the passage of time and ensure the asynchronous functions behave as expected.",
+      "code_snippet": "jest.useFakeTimers();\nasyncFunction().then(callback);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you ensure setTimeout callback is called once after the timeout?",
+      "response": "You can ensure that setTimeout is called once by using jest.spyOn() and verifying the callback is invoked once.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback, 1000);\njest.advanceTimersByTime(1000);\nexpect(callback).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you mock and test recursive setInterval calls in Jest?",
+      "response": "You can mock setInterval with jest.spyOn() and control the intervals with jest.advanceTimersByTime() to ensure correct behavior.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test a function that fires a timer inside a promise in Jest?",
+      "response": "Simulate the timer firing inside the promise by using jest.advanceTimersByTime() to test the promise resolution.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(() => { setTimeout(callback, 1000); });\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you test a setTimeout function that should be called multiple times in sequence?",
+      "response": "Set multiple setTimeout calls and use jest.advanceTimersByTime() to simulate each timeout firing sequentially.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\nsetTimeout(callback3, 3000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test a setTimeout function that is cleared before it fires?",
+      "response": "Clear the timeout using clearTimeout() and check that the callback has not been invoked after advancing time.",
+      "code_snippet": "jest.useFakeTimers();\nconst timeoutId = setTimeout(callback, 1000);\nclearTimeout(timeoutId);\njest.advanceTimersByTime(1000);\nexpect(callback).not.toHaveBeenCalled();"
+    },
+    {
+      "query": "How do you test multiple setTimeout calls with different delays?",
+      "response": "You can test multiple setTimeout calls by using jest.advanceTimersByTime() and verifying that each callback is called at the correct time.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you test setInterval calls that should stop after a condition is met?",
+      "response": "Use clearInterval() to stop the interval and verify that the callback does not execute after the interval is cleared.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nconst intervalId = setInterval(callback, 1000);\nclearInterval(intervalId);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you mock setInterval calls that should be triggered only once?",
+      "response": "Mock setInterval using jest.spyOn() and ensure that it is only called once using jest.advanceTimersByTime() and assertions.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\njest.advanceTimersByTime(1000);\nexpect(setInterval).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you test if a function with setInterval is repeatedly called within a time period?",
+      "response": "Use jest.spyOn() to mock setInterval, then use jest.advanceTimersByTime() to simulate the repeated calls within the time period.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nsetInterval(callback, 1000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test multiple functions that use setTimeout with varying time delays?",
+      "response": "Mock each setTimeout with jest.spyOn(), and advance the timers using jest.advanceTimersByTime() to control when each callback is executed.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\nsetTimeout(callback3, 3000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test a function that calls setTimeout inside another setTimeout?",
+      "response": "You can test nested setTimeout calls by advancing timers for both timeouts using jest.advanceTimersByTime().",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(() => { setTimeout(callback, 1000); }, 1000);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you test a delay function that should reject after a timeout in Jest?",
+      "response": "Use jest.useFakeTimers() and advance the timers to simulate the rejection of a promise after a timeout.",
+      "code_snippet": "jest.useFakeTimers();\nasyncFunction().catch(() => callback);\njest.advanceTimersByTime(1000);"
+    },
+    {
+      "query": "How do you test a callback that should run after a series of setTimeout calls?",
+      "response": "Use jest.advanceTimersByTime() to simulate time and check that the callback runs after all setTimeout functions complete.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you simulate timers and promises that resolve after multiple steps?",
+      "response": "Combine setTimeout with promises and use jest.advanceTimersByTime() to simulate the series of actions and delays.",
+      "code_snippet": "jest.useFakeTimers();\npromiseFunction().then(() => setTimeout(callback1, 1000));\nsetTimeout(callback2, 2000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you simulate setTimeout for a function that should execute multiple times in Jest?",
+      "response": "Set multiple setTimeout calls and advance timers in steps to check each function executes at the correct time.",
+      "code_snippet": "jest.useFakeTimers();\nsetTimeout(callback1, 1000);\nsetTimeout(callback2, 2000);\nsetTimeout(callback3, 3000);\njest.advanceTimersByTime(3000);"
+    },
+    {
+      "query": "How do you test that setTimeout is called only once even when multiple calls are made?",
+      "response": "Mock setTimeout and ensure it is called only once using jest.spyOn() and jest.advanceTimersByTime() to advance time.",
+      "code_snippet": "jest.spyOn(global, 'setTimeout');\nsetTimeout(callback, 1000);\nsetTimeout(callback, 2000);\njest.advanceTimersByTime(2000);\nexpect(setTimeout).toHaveBeenCalledTimes(1);"
+    },
+    {
+      "query": "How do you simulate timers when multiple promises are used with different timeouts?",
+      "response": "Use jest.advanceTimersByTime() to resolve multiple promises with different timeouts and ensure they resolve correctly.",
+      "code_snippet": "jest.useFakeTimers();\npromise1().then(callback1);\npromise2().then(callback2);\njest.advanceTimersByTime(2000);"
+    },
+    {
+      "query": "How do you test setInterval when the interval is cleared during execution?",
+      "response": "Use jest.spyOn() to spy on setInterval and use clearInterval to stop the interval at a specific point in time.",
+      "code_snippet": "jest.spyOn(global, 'setInterval');\nconst intervalId = setInterval(callback, 1000);\nclearInterval(intervalId);\njest.advanceTimersByTime(2000);"
+    }
+  ],
+  "greetings": [
+    
+      {"query": "Hello", "response": "Hey there! How's it going?", "code_snippet": ""},
+      {"query": "Hi", "response": "Hi! What's up?", "code_snippet": ""},
+      {"query": "Hey", "response": "Hey! Good to see you.", "code_snippet": ""},
+      {"query": "Good morning", "response": "Morning! Hope you have a great day.", "code_snippet": ""},
+      {"query": "Good afternoon", "response": "Good afternoon!  Anything exciting happening?", "code_snippet": ""},
+      {"query": "Good evening", "response": "Good evening! How was your day?", "code_snippet": ""},
+      {"query": "Good night", "response": "Night night! Sleep tight.", "code_snippet": ""},
+      {"query": "How are you?", "response": "I'm doing pretty good, thanks for asking! How about yourself?", "code_snippet": ""},
+      {"query": "How's it going?", "response": "Things are good here.  What about you?", "code_snippet": ""},
+      {"query": "What's up?", "response": "Not much, just chilling. What's going on with you?", "code_snippet": ""},
+      {"query": "How do you do?", "response": "I'm doing well, thank you.  It's a pleasure to meet you.", "code_snippet": ""},
+      {"query": "Nice to meet you", "response": "Likewise! Great to meet you too.", "code_snippet": ""},
+      {"query": "Pleased to meet you", "response": "It's a pleasure to meet you as well.", "code_snippet": ""},
+      {"query": "It's good to see you", "response": "It's so good to see you too! How have you been?", "code_snippet": ""},
+      {"query": "Long time no see", "response": "Wow, it really has been a while! What have you been up to?", "code_snippet": ""},
+      {"query": "Have a nice day", "response": "Thanks! You too. Hope your day is awesome.", "code_snippet": ""},
+      {"query": "Have a good one", "response": "You too!  Have a good one.", "code_snippet": ""},
+      {"query": "See you later", "response": "See ya! Catch you later.", "code_snippet": ""},
+      {"query": "Goodbye", "response": "Bye for now! Take care.", "code_snippet": ""},
+      {"query": "What is the time now", "response": "", "code_snippet": "" },
+      {"query": "What is the date today", "response": "", "code_snippet": "" },
+      {"query": "What day is it today", "response": "", "code_snippet": "" },
+      {"query": "What is the weather like today", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for tomorrow", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the week", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the weekend", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for next week", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for next weekend", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for next month", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for next year", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few days", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few weeks", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of days", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of weeks", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several days", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several weeks", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next several years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few months", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next few years", "response": "", "code_snippet": "" },
+      {"query": "What is the weather forecast for the next couple of months", "response": "", "code_snippet": "" },
+      {"query": "Help", "response": "I'm here to help! What do you need assistance with?", "code_snippet": ""},
+      {"query": "What can you do?", "response": "I can help you with a variety of tasks. Just let me know what you need!", "code_snippet": ""},
+      {"query": "What are your capabilities?", "response": "I can assist you with a wide range of tasks. What can I help you with today?", "code_snippet": ""},
+      {"query": "What are you capable of?", "response": "I can help you with many things. What do you need assistance with?", "code_snippet": ""},
+      {"query": "What are your functions?", "response": "I have many functions to help you. What can I assist you with today?", "code_snippet": ""},
+      {"query": "What are your features?", "response": "I have a variety of features to help you. What do you need assistance with?", "code_snippet": ""},
+      {"query": "What are your abilities?", "response": "I have a wide range of abilities to assist you. What can I help you with today?", "code_snippet": ""},
+      {"query": "What are your skills?", "response": "I have many skills to help you. What do you need assistance with?", "code_snippet": ""},
+      {"query": "What are your talents?", "response": "I have many talents to assist you. What can I help you with today?", "code_snippet": ""},
+      {"query": "What are your powers?", "response": "I have many powers to help you. What do you need assistance with?", "code_snippet": ""},
+      {"query": "What are your strengths?", "response": "I have many strengths to assist you. What can I help you with today?", "code_snippet": ""},
+      {"query": "What are your abilities?", "response": "I have a wide range of abilities to help you. What do you need assistance with?", "code_snippet": ""},
+      {"query": "What are your functions?", "response": "I have many functions to assist you. What can I help you with today?", "code_snippet": ""},
+      {"query": "What are your features?", "response": "I have a variety of features to help you. What do you need assistance with?", "code_snippet": ""}
+    
+  ]
+}

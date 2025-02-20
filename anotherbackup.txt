@@ -1,0 +1,46 @@
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig, BitsAndBytesConfig
+import torch  # Import PyTorch
+
+model_id = "prithivMLmods/QwQ-LCoT-14B-Conversational"
+
+try:
+    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
+    quant_config = BitsAndBytesConfig(load_in_4bit=True)  # Enable 4-bit quantization
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+# tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-Small-24B-Instruct-2501")
+# model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-Small-24B-Instruct-2501")
+    # Force a supported dtype (float16 or float32) & avoid FP8 errors
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id, 
+        config=config, 
+        trust_remote_code=True, 
+)
+
+    # Example usage (text generation)
+    prompt = "Once upon a time, there was a..."
+    inputs = tokenizer(prompt, return_tensors="pt")  # Use PyTorch tensors
+
+    # Generate text (disable gradients for efficiency)
+    with torch.no_grad():
+        outputs = model.generate(**inputs, max_new_tokens=50, do_sample=True, temperature=0.7)
+
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    print(generated_text)
+
+    # Example usage (chat)
+    def chat(user_input):
+        inputs = tokenizer(user_input, return_tensors="pt")  # PyTorch tensors
+        with torch.no_grad():
+            outputs = model.generate(**inputs, max_new_tokens=100, do_sample=True, temperature=0.7)
+        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        return response
+
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["exit", "quit", "q"]:
+            break
+        bot_response = chat(user_input)
+        print("Chatbot:", bot_response)
+
+except Exception as e:
+    print(f"An error occurred: {e}")
