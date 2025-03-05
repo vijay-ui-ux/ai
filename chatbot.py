@@ -1,7 +1,10 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from google import genai
+from google.genai import types
 from geopy.geocoders import Nominatim
+import torch
 import json
 import faiss
 import numpy as np
@@ -16,6 +19,10 @@ from spacy_langdetect import LanguageDetector
 from PIL import Image
 import pytesseract
 import io
+import os
+import re
+import vertexai
+from vertexai.preview.language_models import TextGenerationModel
 import easyocr
 import cv2
 from google.cloud import vision, translate_v2 as translate
@@ -23,11 +30,10 @@ from google.oauth2 import service_account
 from moviepy.editor import VideoFileClip
 import speech_recognition as sr
 from deepmultilingualpunctuation import PunctuationModel
-# import fasttext
+device = torch.device("cpu")
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
-# language_model = fasttext.load_model('lid.176.bin')
-# translator = pipeline("translation_xx_to_en", model="Helsinki-NLP/opus-mt-hi-en")
+model.to(device)   # Move the model to the device
 punctuation_model = PunctuationModel()
 summarizer_model = pipeline("summarization", model="Falconsai/text_summarization")
 app = FastAPI()
@@ -36,10 +42,15 @@ reader = easyocr.Reader(['en'])  # Initialize EasyOCR reader
 geolocator = Nominatim(user_agent="geoapi")
 # Allow frontend access
 origins = ["http://localhost:4200"]  # Replace with your Angular app's URL
+# origins = ["http://localhost:4200", "https://tech-bot-chi.vercel.app"]  # Replace with your Angular app's URL
+# 
+# Initialize Vertex AI
+vertexai.init(project="cohesive-feat-450806-i9", location="us-central1")  # Replace with your project ID and location
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins= origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,6 +58,9 @@ app.add_middleware(
 
 class ChatRequest(BaseModel):
     message: str
+
+# Load chat history
+chat_history = []
 
 # Load predefined questions & answers
 with open("javascript_functions.json", "r") as f:
@@ -60,37 +74,35 @@ for dataset in ["javascript_functions", "css_data", "family_data", "react_unit_t
     stored_responses.update({item["query"]: item for item in javascript_data[dataset]})
 # Encode stored questions into vectors
 question_embeddings = model.encode(stored_questions, convert_to_tensor=False).astype(np.float32)
-
 # Create FAISS index for fast similarity search
 dimension = question_embeddings.shape[1]
 index = faiss.IndexFlatL2(dimension)
 index.add(question_embeddings)
 nlp = spacy.load("en_core_web_sm")
-nlp_xx = spacy.load("xx_sent_ud_sm")
 # Keyword-based responses
 def simple_responses(user_input):
     user_input = user_input.lower()
     doc = nlp(user_input)
     detected_locations = [ent.text.lower() for ent in doc.ents if ent.label_ in ["GPE", "LOC"]]
     words = user_input.lower().split()
-    print(f"Words: {words}")
+    # print(f"Words: {words}")
     matched_locations = []
     valid_locations = []
     for loc in words:
         try:
             location = geolocator.geocode(loc)
-            print(f"Location: {location.address}")
+            # print(f"Location: {location.address}")
             if location and "India" in location.address and len(loc) > 2:
                 matched_locations.append(loc.title())  # Capitalize for proper format
-                print(f"Matched location: {geolocator.geocode(loc).address}")
+                # print(f"Matched location: {geolocator.geocode(loc).address}")
         except:
             pass  # Ignore errors
 
-    print(f"Detected locations: {detected_locations}")
-    print(f"Matched locations: {matched_locations}")
+    # print(f"Detected locations: {detected_locations}")
+    # print(f"Matched locations: {matched_locations}")
     # valid_locations = set(detected_locations + matched_locations)
     locations = [ent.text for ent in doc.ents if ent.label_ in ["GPE", "LOC"]]  # GPE is for countries, cities, states
-    print(f"Locations: {locations}")
+    # print(f"Locations: {locations}")
     keywords = {
         "weather": ["weather", "forecast", "temperature"],
         "farewells": ["bye", "goodbye", "see you later", "farewell", "take care"],
@@ -128,7 +140,7 @@ def simple_responses(user_input):
                     description = data["weather"][0]["description"]
                     return f"Current weather in {city} is {temperature}°C with {description}."
                 except requests.exceptions.RequestException as e:
-                    print(f"Error fetching weather data: {e}")
+                    # print(f"Error fetching weather data: {e}")
                     return "I'm sorry, I couldn't get the weather information right now."
             elif any(word in user_input for word in keyword_list):  # For other keywords
                 return responses[key]
@@ -204,20 +216,20 @@ def transcribe_audio(audio_file):
 
     try:
         text = r.recognize_google(audio)
-        print("Transcription:", text)
+        # print("Transcription:", text)
         return text
     except sr.UnknownValueError:
-        print("Could not understand audio")
+        # print("Could not understand audio")
         return None
     except sr.RequestError as e:
-        print(f"Could not request results from speech recognition service; {e}")
+        # print(f"Could not request results from speech recognition service; {e}")
         return None
 
 # Function to detect language using spaCy
 def detect_language(text):
     translate_client = translate.Client()
     result = translate_client.detect_language(text)
-    print(f"Detected language: {result['language']}")
+    # print(f"Detected language: {result['language']}")
     return result['language']
     # doc = nlp_xx(text)  # Use the multilingual model for language detection
     # return doc.lang_
@@ -228,31 +240,200 @@ def detect_language(text):
 #     return translation['translation_text']
 
 # Function to translate text using Google Cloud Translation API
-def translate_text(text, target_language="en"):
+# def translate_text(text, target_language="en"):
+#     credentials_json = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+#     if credentials_json:
+#         credentials_dict = json.loads(credentials_json)
+#         # Create a client with the credentials
+#         translate_client = translate.Client.from_service_account_info(credentials_dict)
+#     else:
+#         translate_client = translate.Client()
+#     result = translate_client.translate(text, target_language=target_language)
+#     return result['translatedText']
+
+def translate_text(text, target_language="en"):    
     translate_client = translate.Client()
     result = translate_client.translate(text, target_language=target_language)
     return result['translatedText']
 
-def translate_text_to_target(text, target_language):
-    translate_client = translate.Client()
-    result = translate_client.translate(text, target_language=target_language)
-    return result['translatedText']
+# def translate_text_to_target(text, target_language):
+#     credentials_json = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+#     if credentials_json:
+#         credentials_dict = json.loads(credentials_json)
+#         # Create a client with the credentials
+#         translate_client = translate.Client.from_service_account_info(credentials_dict)
+#     else:
+#         translate_client = translate.Client()
+#     result = translate_client.translate(text, target_language=target_language)
+#     return result['translatedText']
+
+def extract_code_snippet(user_input):
+  """Extracts code snippets from user input.
+
+  Args:
+    user_input: The user's input string.
+
+  Returns:
+    The extracted code snippet as a string, or None if no code snippet is found.
+  """
+
+  # Define a regular expression pattern to match code snippets
+  # This pattern assumes code snippets are enclosed in triple backticks (```)
+  pattern = r"```(?:\w+\n)?(.*?)```"  # Matches code between triple backticks, optionally with a language specifier
+
+  match = re.search(pattern, user_input, re.DOTALL)  # re.DOTALL allows the pattern to match across multiple lines
+
+  if match:
+    return match.group(1).strip()  # Extract the code and remove leading/trailing whitespace
+  else:
+    return None
+
+# Function to analyze and explain code
+def analyze_code(code_snippet, language="python"):
+    #... (optional preprocessing of the code snippet)
+    prompt = f"Analyze and explain the following {language} code:\n\n```{language}\n{code_snippet}\n```"
+    response = code_model.predict(prompt)
+    # response = code_model.predict(prefix=code_snippet, temperature=0.2, max_output_tokens=256)
+    return response.text
+
+# Function to generate text using Gemini
+def generate_text(prompt):
+    response = genai_model.predict(prompt)
+    return response.text
+
+
+def format_text_to_html(text):
+    """
+    Replaces **bold** text with <b>bold</b> in a string.
+
+    Args:
+        text: The input string.
+
+    Returns:
+        The formatted string with <b> tags.
+    """
+    return re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
+
+def generate(prompt, chat_history):
+    client = genai.Client(
+        vertexai=True,
+        project="cohesive-feat-450806-i9",
+        location="us-central1",
+    )
+    model = "gemini-2.0-flash-001"
+    contents = chat_history
+    tools = [
+        types.Tool(google_search=types.GoogleSearch())
+    ]
+    generate_content_config = types.GenerateContentConfig(
+        temperature=1,
+        top_p=0.95,
+        max_output_tokens=8192,
+        response_modalities=["TEXT"],
+        safety_settings=[
+            types.SafetySetting(
+                category="HARM_CATEGORY_HATE_SPEECH",
+                threshold="BLOCK_LOW_AND_ABOVE"
+            ),
+            types.SafetySetting(
+                category="HARM_CATEGORY_DANGEROUS_CONTENT",
+                threshold="BLOCK_LOW_AND_ABOVE"
+            ),
+            types.SafetySetting(
+                category="HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                threshold="BLOCK_LOW_AND_ABOVE"
+            ),
+            types.SafetySetting(
+                category="HARM_CATEGORY_HARASSMENT",
+                threshold="BLOCK_LOW_AND_ABOVE"
+            )
+        ],
+        tools=tools,
+    )
+    generated_text = ""
+    for chunk in client.models.generate_content_stream(
+        model=model,
+        contents=contents,
+        config=generate_content_config,
+    ):
+        # if not chunk.candidates or not chunk.candidates[0].content.parts:
+        #     continue
+        generated_text += chunk.text
+    # print(f"gemini response: ", generated_text)
+    return generated_text
+
+
+
+@app.get("/api/home")
+def home():
+    return {"message": "FastAPI is running!"}
+# CORS preflight request
+# @app.options("/{full_path:path}")
+# async def preflight(full_path: str):
+#     return {"message": "Preflight successful"}
+
+
+# @app.options("/api/chat")  # Add this to explicitly handle OPTIONS requests
+# async def chat_options():
+#     response = Response()
+#     response.headers["Access-Control-Allow-Origin"] = "https://tech-bot-chi.vercel.app"  # Your frontend origin
+#     response.headers["Access-Control-Allow-Methods"] = "POST"  # Allowed methods
+#     response.headers["Access-Control-Allow-Headers"] = "Content-Type"  # Allowed headers
+#     return response
+
+
+@app.post("/api/conversation")
+async def conversation(request: ChatRequest):
+    user_input = request.message[len(request.message) - 1]
+
 # API endpoint for chatbot
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
-    print(f"Received message: {request}")
     user_input = request.message
+    # Check if the user is asking for code analysis
+    # if "analyze" in user_input.lower() or "explain" in user_input.lower():
+    # Extract the code snippet from the user input
+    code_snippet = extract_code_snippet(user_input)  # You'll need to implement this function
+    # Analyze the code
+    # analysis = analyze_code(code_snippet)
+    # analysis = generate_text(code_snippet)
+    chat_history.append(types.Content(
+            role="user",
+            parts=[
+                types.Part.from_text(text=user_input)
+            ]
+        ))
+    analysis = generate(user_input, chat_history)
+    print(f"Analysis result: {analysis}")
+    analysis_language = detect_language(analysis)
+    title_change = translate_text("TechBot", target_language=analysis_language)
+    google_change = translate_text("google", target_language=analysis_language)
+    google_change_case = translate_text("Google", target_language=analysis_language)
+    analysis = analysis.replace(google_change.lower(), title_change.lower())
+    analysis = analysis.replace("Google", "TechBot")
+    # print(f"Analysis result: {analysis}")
+    if not analysis:
+        analysis = "I couldn't analyze the information."
+    chat_history.append(types.Content(
+            role="model",
+            parts=[
+                types.Part.from_text(text=analysis)
+            ]
+        ))
+    return {"response": analysis, "code_snippet": None, "chat_history": chat_history}
+    # else:
+    # print(f"Received message: {request}")
     language = detect_language(user_input)
     # language = detect_language(user_input)
     translation = translate_text(user_input)
-    print(f"Translated text: {translation}")
+    # print(f"Translated text: {translation}")
     # print(f"Detected language: {language}")
     # if language != "en":
     #     user_input_en = translate_text(user_input)
     bot_response = chatbot_response(translation)  # Process user input
-    print(f"Bot response: {bot_response}")
+    # print(f"Bot response: {bot_response}")
     translated_response = translate_text(bot_response["response"], target_language=language)
-    print(f"Translated response: {translated_response}")
+    # print(f"Translated response: {translated_response}")
     return {"response": translated_response, "code_snippet": bot_response["code_snippet"]}
 
 @app.post("/api/audioTOText")
@@ -289,7 +470,7 @@ async def video_to_text(video: UploadFile = File(None)):
     text = text.capitalize()  # Capitalize the first letter
     summarized_text = summarizer_model(text, max_length=1000, min_length=30, do_sample=False)
     if text:
-        print(f"Transcribed text: {summarized_text[0]['summary_text']}")  # Print the transcribed text
+        # print(f"Transcribed text: {summarized_text[0]['summary_text']}")  # Print the transcribed text
         bot_response = {"response": summarized_text[0]['summary_text'], "code_snippet": None}  # Process transcribed text
     else:
         bot_response = {"response": "I couldn't transcribe the audio.", "code_snippet": None}
@@ -298,7 +479,7 @@ async def video_to_text(video: UploadFile = File(None)):
 # API endpoint for image processing
 @app.post("/api/checkImage")
 async def checkImage(image: UploadFile = File(None)):
-    print(f"Received image: {image}")
+    # print(f"Received image: {image}")
     try:
         contents = await image.read()
         image = convert_image(contents)
@@ -312,12 +493,11 @@ async def checkImage(image: UploadFile = File(None)):
         else:
             text = pytesseract.image_to_string(image)
         bot_response = image_responses(text)  # Process extracted text
-        print(f"Processed image: {bot_response}")
+        # print(f"Processed image: {bot_response}")
         return bot_response
     except Exception as e:
-        print(f"Error processing image: {e}")
+        # print(f"Error processing image: {e}")
         bot_response = {"response": "I couldn't process the image. Please try again later.", "code_snippet": None}
         return bot_response
 
-# Run with: uvicorn main:app --reload
-
+# Run with: uvicorn chatbot:app --reload
